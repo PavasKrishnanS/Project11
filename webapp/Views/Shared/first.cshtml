@@ -1,0 +1,233 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - webapp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/webapp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+</head>
+<body>
+
+
+
+<header>
+ <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Webapp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Signup">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+
+
+
+
+@*
+                    <form class="d-flex ms" role="search" style="margin-left: auto;">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>*@
+                </div>
+            </div>
+        </nav>
+  </header>
+
+
+
+    <div class="container" style="max-width: 1200px; margin: auto; padding: 100px;">
+        <main role="main" class="pb-3" style="width: 100%; max-width: 100%; min-height: 400px; padding: 20px; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            @RenderBody()
+        </main>
+        </>
+    </div>
+    <footer class="border-top footer text-muted" style="background-color: #f0f0f0; padding: 10px; text-align: left;">
+
+            <div class ="social media">
+             <p> Follow us on </p>
+            <a href="https://www.facebook.com/LexingtonKyGov" class="fa fa-facebook"></a>
+            <a href="https://x.com/LexingtonKyGov" class="fa fa-twitter"></a>
+            <a href="https://www.lexingtonky.gov/" class="fa fa-google"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-youtube"></a>
+            <a href="https://www.instagram.com/lexingtonkygov/" class="fa fa-instagram"></a>
+
+            </div>
+
+            <style>
+.fa {
+  padding: 10px;
+  font-size: 20px;
+  width: 60px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+</style>
+
+          <div class=" col-md -4";id="google_translate_element"></div>
+                    
+       
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <div id="google_translate_element"></div>
+
+
+
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <br/>
+
+
+        <div class="row">
+            <div class="col-sm-3" id="contact" style="background-color: lightgreen; padding: 10px; text-align: center; font-size: 15px;">
+                <p>Contact Us</p>
+                <p><b>EMPLOYMENT OFFICE</b></p>
+                <p>123, Main Street</p>
+                <p>Lexington, KY-4217</p>
+                <a href="tel:476-902-9299" style="text-decoration: none; color: black;">Call us at 476-902-9299</a>
+            </div>
+
+            <div class="col-sm-3" id="officehours" style="background-color: deepskyblue; padding: 10px; text-align: center; font-size: 15px;">
+                <p><b>Office Hours</b></p>
+                <p>Monday to Thursday</p>
+                <p><small>9am to 5pm</small></p>
+                <p>Friday</p>
+                <p><small>10am to 4pm</small></p>
+            </div>
+
+            <div class="col-sm-3" id="quicklinks" style="background-color: yellow; padding: 10px; text-align: center; font-size: 15px;">
+                <p>Quick Links</p>
+                <a class="nav-link" href="/Home/Signup" style="color: black; text-decoration: none;">Home</a>
+                <a class="nav-link" href="/Home/Login" style="color: black; text-decoration: none;">Login</a>
+                <a class="nav-link" href="/Home/Opening" style="color: black; text-decoration: none;">Contact</a>
+                <a class="nav-link" href="/Home/Privacy" style="color: black; text-decoration: none;">Privacy</a>
+            </div>
+
+                <div class="col-sm-2" style="text-align:right;">
+                    <img src="https://www.openthebooks.com/assets/1/6/Kentucky.jpg?60162" style="width: 400px; border-radius: 30%;">
+                </div>
+
+
+            </div>
+         
+       
+
+        
+
+     
+
+      
+
+        <div class="container" style="padding: 10px; text-align: center;">
+            
+
+
+                &copy; 2024 - webapp, Inc. All Rights Reserved
+                - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            @await RenderSectionAsync("Scripts", required: false)
+
+
+        </footer>
+   
+</body>
+</html>
+
+ 
+
+             

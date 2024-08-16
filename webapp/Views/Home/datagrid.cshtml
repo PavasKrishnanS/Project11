@@ -1,0 +1,622 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "Employee Data Table View";
+}
+
+@model FormViewModel
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+   
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12">
+
+            <br />
+            <label for="country-select">Select Country:</label>
+            <select id="country-select" class="form-control">
+                <option value="">Select a country</option>
+                <option value="US">US</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+                <option value="India">India</option>
+            </select>
+            <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <br />
+            <label for="age-filter">Select Age Category:</label>
+            <select id="age-filter" class="form-control">
+                <option value="">Select age category..</option>
+                <option value="below25">Below 25</option>
+                <option value="below50">Below 50</option>
+                <option value="above50">Above 50</option>
+            </select>
+        </div>
+    </div>
+    
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <br />
+            <button id="fetch-data-btn" class="btn btn-primary">Fetch Data</button>
+            <button id="back-to-full-list-btn" class="btn btn-secondary">Back to Full List</button>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <table id="employeeTable" class="table table-striped table-bordered bg-light">
+
+               
+            </table>
+        </div>
+    </div>
+
+
+    <div class="pagination-container text-right" style="display: none;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+            
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+<style>
+    .pagination-container {
+        text-align: right; 
+        margin-top: 20px; 
+    }
+
+        .pagination {
+            justify-content: flex-end; /* Aligns pagination items to the right */
+        }
+</style>
+</div>
+    <style>
+    .container {
+        margin-left: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
+         
+    }
+</style>
+
+<style>
+   body{
+       background-color:  wheat;
+       
+   }
+</style>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+    //    $('#fetch-data-btn').click(function () {
+    //        var country = $('#country-select').val();
+    //        var ageFilter = $('#age-filter').val();
+
+    //        var dataToSend = {};
+
+    //        if (country !== '') {
+    //            dataToSend.country = country;
+    //        }
+
+    //        if (ageFilter !== '') {
+    //            dataToSend.ageFilter = ageFilter;
+    //        }
+
+    //        getData(dataToSend);
+    //    });
+
+    //    $('#back-to-full-list-btn').click(function () {
+    //        $('#country-select').val('');
+    //        $('#age-filter').val('');
+    //        getData({});
+    //    });
+   
+
+    //function getData(dataToSend) {
+    //    $.ajax({
+    //        url: '/Home/GetData',
+    //        type: 'POST',
+    //        data: dataToSend,
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            displayTable(data);
+    //            $('.pagination-container').show(); 
+    //        },
+    //        error: function (xhr, textStatus, errorThrown) {
+    //            alert('Error fetching data: ' + errorThrown);
+    //        }
+    //    });
+    //}
+
+
+
+    //function displayTable(data) {
+    //    $('#employeeTable').empty();
+
+    //    let table = '<thead><tr>';
+    //    table += '<th>First Name</th><th>Last Name</th><th>EmployeeID</th><th>Email</th><th>Phone Number</th><th>SSN</th><th>Date of Birth</th><th>Age</th><th>Salary</th><th>Department</th><th>Gender</th><th>Address</th><th>Address 2</th><th>City</th><th>Country</th><th>State</th><th>Zip</th><th>Edit</th><th>Delete</th>';
+    //    table += '</tr></thead>';
+    //    table += '<tbody>';
+
+    //    $.each(data, function (index, employee) {
+    //        let date = new Date(employee.dateOfBirth);
+    //        let formattedDateOfBirth = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    //            date.getDate().toString().padStart(2, '0') + '/' +
+    //            date.getFullYear();
+    //        table += '<tr><td>' + employee.firstName + '</td><td>'
+    //            + employee.lastName + '</td><td>'
+    //            + employee.employeeID + '</td><td>'
+    //            + employee.email + '</td><td>'
+    //            + employee.phoneNumber + '</td><td>'
+    //            + employee.ssn + '</td><td>'
+    //            + formattedDateOfBirth + '</td><td>'
+    //            + employee.age + '</td><td>'
+    //            + employee.salary + '</td><td>'
+    //            + employee.department + '</td><td>'
+    //            + employee.gender + '</td><td>'
+    //            + employee.address + '</td><td>'
+    //            + employee.address2 + '</td><td>'
+    //            + employee.city + '</td><td>'
+    //            + employee.country + '</td><td>'
+    //            + employee.state + '</td><td>'
+    //            + employee.zip + '</td><td>'
+    //            + '<button class="btn btn-primary btn-sm edit-btn" data-employeeid="' + employee.employeeID + '">Edit</button></td><td>'
+    //            + '<button class="btn btn-danger btn-sm delete-btn" data-ssn="' + employee.ssn + '">Delete</button></td></tr>';
+    //    });
+
+    //    table += '</tbody>';
+
+    //    $('#employeeTable').append(table);
+
+    //    $('.edit-btn').click(function () {
+    //        let employeeID = $(this).data('employeeid');
+    //        let url = `/Home/EditEmployee?employeeID=${encodeURIComponent(employeeID)}`;
+    //        window.location.href = url;
+    //    });
+
+    //    $('.delete-btn').click(function () {
+    //        let ssn = $(this).data('ssn');
+    //        if (confirm('Are you sure you want to delete this employee?')) {
+    //            deleteEmployee(ssn);
+    //        }
+    //    });
+    //}
+
+
+
+
+
+    //function deleteEmployee(ssn) {
+    //    $.ajax({
+    //        url: '/Home/DeleteEmployee',
+    //        type: 'POST',
+    //        contentType: 'application/json; charset=utf-8',
+    //        data: JSON.stringify({ SSN: ssn }),
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            if (response.success) {
+    //                alert('Employee deleted successfully!');
+    //                $(`button.delete-btn[data-ssn="${ssn}"]`).closest('tr').remove();
+    //            } else {
+    //                alert('Error deleting employee: ' + response.message);
+    //            }
+    //        },
+    //        error: function (xhr, textStatus, errorThrown) {
+    //            alert('Error deleting employee: ' + errorThrown);
+    //        }
+    //    });
+    //}
+
+
+
+//    $(document).ready(function () {
+//        var currentPage = 1;
+//        var pageSize = 2;
+     
+//        var totalPages = 3;                  
+
+//        function loadPage(pageNumber) {
+//            currentPage = pageNumber;
+//            var country = $('#country-select').val();
+//            var ageFilter = $('#age-filter').val();
+
+//            var dataToSend = {
+//                pageNumber: pageNumber,
+//                pageSize: pageSize
+//            };
+
+//            if (country !== '') {
+//                dataToSend.country = country;
+//            }
+
+//            if (ageFilter !== '') {
+//                dataToSend.ageFilter = ageFilter;
+//            }
+
+//            getData(dataToSend);
+//        }
+
+//        $('#fetch-data-btn').click(function () {
+//            loadPage(1);
+//        });
+
+//        $('#back-to-full-list-btn').click(function () {
+//            $('#country-select').val('');
+//            $('#age-filter').val('');
+//            loadPage(1);
+//        });
+
+//        $('.pagination').on('click', 'a.page-link', function (e) {
+//            e.preventDefault();
+//            var pageNumber = $(this).data('page');
+//            if (pageNumber) {
+//                loadPage(pageNumber);
+//            }
+//        });
+
+//        function getData(dataToSend) {
+           
+//            $.ajax({
+//                url: '/Home/GetData',
+//                type: 'POST',
+//                data: dataToSend,
+//                dataType: 'json',
+//                success: function (data) {
+//                    displayTable(data); 
+//                    updatePaginationControls( );
+//                },
+                
+//                    error: function (xhr, textStatus, errorThrown) {
+//                    alert('Error fetching data: ' + errorThrown);
+//                }
+//            });
+//        }
+
+//        function displayTable(data) {
+//            $('#employeeTable').empty();
+
+//            let table = '<thead><tr>';
+//            table += '<th>First Name</th><th>Last Name</th><th>EmployeeID</th><th>Email</th><th>Phone Number</th><th>SSN</th><th>Date of Birth</th><th>Age</th><th>Salary</th><th>Department</th><th>Gender</th><th>Address</th><th>Address 2</th><th>City</th><th>Country</th><th>State</th><th>Zip</th><th>Edit</th><th>Delete</th>';
+//            table += '</tr></thead>';
+//            table += '<tbody>';
+
+//            $.each(data, function (index, employee) {
+//                let date = new Date(employee.dateOfBirth);
+//                let formattedDateOfBirth = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+//                    date.getDate().toString().padStart(2, '0') + '/' +
+//                    date.getFullYear();
+//                table += '<tr><td>' + employee.firstName + '</td><td>'
+//                    + employee.lastName + '</td><td>'
+//                    + employee.employeeID + '</td><td>'
+//                    + employee.email + '</td><td>'
+//                    + employee.phoneNumber + '</td><td>'
+//                    + employee.ssn + '</td><td>'
+//                    + formattedDateOfBirth + '</td><td>'
+//                    + employee.age + '</td><td>'
+//                    + employee.salary + '</td><td>'
+//                    + employee.department + '</td><td>'
+//                    + employee.gender + '</td><td>'
+//                    + employee.address + '</td><td>'
+//                    + employee.address2 + '</td><td>'
+//                    + employee.city + '</td><td>'
+//                    + employee.country + '</td><td>'
+//                    + employee.state + '</td><td>'
+//                    + employee.zip + '</td><td>'
+//                    + '<button class="btn btn-primary btn-sm edit-btn" data-employeeid="' + employee.employeeID + '">Edit</button></td><td>'
+//                    + '<button class="btn btn-danger btn-sm delete-btn" data-ssn="' + employee.ssn + '">Delete</button></td></tr>';
+//            });
+
+//            table += '</tbody>';
+
+//            $('#employeeTable').append(table);
+
+//            $('.edit-btn').click(function () {
+//                let employeeID = $(this).data('employeeid');
+//                let url = `/Home/EditEmployee?employeeID=${encodeURIComponent(employeeID)}`;
+//                window.location.href = url;
+//            });
+
+//            $('.delete-btn').click(function () {
+//                let ssn = $(this).data('ssn');
+//                if (confirm('Are you sure you want to delete this employee?')) {
+//                    deleteEmployee(ssn);
+//                }
+//            });
+//        }
+//       function updatePaginationControls() {
+
+//    $('.pagination-container').show();
+
+//            var paginationHtml = '';
+
+//            // Previous button
+//            paginationHtml += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+//                <a class="page-link" href="#" aria-label="Previous" data-page="${currentPage - 1}">Previous</a>
+//            </li>`;
+
+//            // Page numbers
+//            if (totalPages > 0) { // Check if totalPages is greater than 0
+//                for (var i = 1; i <= totalPages; i++) {
+//                    paginationHtml += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+//                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+//                    </li>`;
+//                }
+//            } else {
+//                paginationHtml += `<li class="page-item disabled"><a class="page-link" href="#">No pages available</a></li>`;
+//            }
+
+//            // Next button
+//            paginationHtml += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+//                <a class="page-link" href="#" aria-label="Next" data-page="${currentPage + 1}">Next</a>
+//            </li>`;
+
+           
+//}
+
+       
+
+        
+
+//        function deleteEmployee(ssn) {
+//            $.ajax({
+//                url: '/Home/DeleteEmployee',
+//                type: 'POST',
+//                contentType: 'application/json; charset=utf-8',
+//                data: JSON.stringify({ SSN: ssn }),
+//                dataType: 'json',
+//                success: function (response) {
+//                    if (response.success) {
+//                        alert('Employee deleted successfully!');
+//                        $(`button.delete-btn[data-ssn="${ssn}"]`).closest('tr').remove();
+//                    } else {
+//                        alert('Error deleting employee: ' + response.message);
+//                    }
+//                },
+
+//                error: function (xhr, textStatus, errorThrown) {
+//                    alert('Error deleting employee: ' + errorThrown);
+//                }
+//            });
+//        }
+//    });
+
+
+
+
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+    var currentPage = 1;
+    var pageSize = 2;
+    var totalPages = 3;
+
+    function loadPage(pageNumber) {
+        currentPage = pageNumber;
+        var country = $('#country-select').val();
+        var ageFilter = $('#age-filter').val();
+
+        var dataToSend = {
+            pageNumber: pageNumber,
+            pageSize: pageSize
+        };
+
+        if (country !== '') {
+            dataToSend.country = country;
+        }
+
+        if (ageFilter !== '') {
+            dataToSend.ageFilter = ageFilter;
+        }
+
+        getData(dataToSend);
+    }
+
+    $('#fetch-data-btn').click(function () {
+        loadPage(1);
+    });
+
+    $('#back-to-full-list-btn').click(function () {
+        $('#country-select').val('');
+        $('#age-filter').val('');
+        loadPage(1);
+    });
+
+    $('.pagination').on('click', 'a.page-link', function (e) {
+        e.preventDefault();
+        var pageNumber = $(this).data('page');
+        if (pageNumber && pageNumber >= 1 && pageNumber <= totalPages) {
+            loadPage(pageNumber);
+        }
+    });
+
+    function getData(dataToSend) {
+        $.ajax({
+            url: '/Home/GetData',
+            type: 'POST',
+            data: dataToSend,
+            dataType: 'json',
+            //success: function (response) {
+            //    displayTable(response.employees);
+            //    totalPages = response.totalPages;
+            //    currentPage = response.currentPage;
+            //    updatePaginationControls();
+            //},
+
+
+                success: function (data) {
+                                        displayTable(data);
+                                        updatePaginationControls( );
+                                    },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error fetching data: ' + errorThrown);
+            }
+        });
+    }
+
+    function displayTable(data) {
+        $('#employeeTable').empty();
+
+        let table = '<thead><tr>';
+        table += '<th>First Name</th><th>Last Name</th><th>EmployeeID</th><th>Email</th><th>Phone Number</th><th>SSN</th><th>Date of Birth</th><th>Age</th><th>Salary</th><th>Department</th><th>Gender</th><th>Address</th><th>Address 2</th><th>City</th><th>Country</th><th>State</th><th>Zip</th><th>Edit</th><th>Delete</th>';
+        table += '</tr></thead>';
+        table += '<tbody>';
+
+        $.each(data, function (index, employee) {
+            let date = new Date(employee.dateOfBirth);
+            let formattedDateOfBirth = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                date.getDate().toString().padStart(2, '0') + '/' +
+                date.getFullYear();
+            table += `<tr>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td>${employee.employeeID}</td>
+                <td>${employee.email}</td>
+                <td>${employee.phoneNumber}</td>
+                <td>${employee.ssn}</td>
+                <td>${formattedDateOfBirth}</td>
+                <td>${employee.age}</td>
+                <td>${employee.salary}</td>
+                <td>${employee.department}</td>
+                <td>${employee.gender}</td>
+                <td>${employee.address}</td>
+                <td>${employee.address2}</td>
+                <td>${employee.city}</td>
+                <td>${employee.country}</td>
+                <td>${employee.state}</td>
+                <td>${employee.zip}</td>
+                <td><button class="btn btn-primary btn-sm edit-btn" data-employeeid="${employee.employeeID}">Edit</button></td>
+                <td><button class="btn btn-danger btn-sm delete-btn" data-ssn="${employee.ssn}">Delete</button></td>
+            </tr>`;
+        });
+
+        table += '</tbody>';
+        $('#employeeTable').append(table);
+
+        $('.edit-btn').click(function () {
+            let employeeID = $(this).data('employeeid');
+            let url = `/Home/EditEmployee?employeeID=${encodeURIComponent(employeeID)}`;
+            window.location.href = url;
+        });
+
+        $('.delete-btn').click(function () {
+            let ssn = $(this).data('ssn');
+            if (confirm('Are you sure you want to delete this employee?')) {
+                deleteEmployee(ssn);
+            }
+        });
+    }
+
+    function updatePaginationControls() {
+        $('.pagination-container').show();
+
+        var paginationHtml = '';
+
+       
+        paginationHtml += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" aria-label="Previous" data-page="${currentPage - 1}">Previous</a>
+        </li>`;
+
+      
+        for (var i = 1; i <= totalPages; i++) {
+            paginationHtml += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>`;
+        }
+
+     
+        paginationHtml += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" aria-label="Next" data-page="${currentPage + 1}">Next</a>
+        </li>`;
+
+        $('.pagination').html(paginationHtml);
+    }
+
+    function deleteEmployee(ssn) {
+        $.ajax({
+            url: '/Home/DeleteEmployee',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ SSN: ssn }),
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    alert('Employee deleted successfully!');
+                    $(`button.delete-btn[data-ssn="${ssn}"]`).closest('tr').remove();
+                } else {
+                    alert('Error deleting employee: ' + response.message);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error deleting employee: ' + errorThrown);
+            }
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

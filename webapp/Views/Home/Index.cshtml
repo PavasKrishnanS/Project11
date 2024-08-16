@@ -1,0 +1,326 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    
+    }
+
+@model FormViewModel
+
+
+<div class="text-center">
+    <h2 style="font-family: 'Playwrite Cuba', sans-serif;">Employee Form Details</h2>
+
+    @*<form asp-controller="Home" asp-action="Index" method="post" class="row g-3" id="employeeForm">
+
+*@
+        <form asp-controller="Home" asp-action="@(string.IsNullOrEmpty(Model.EmployeeID) ? "Index" : "UpdateEmployee")" method="post" class="row g-3" id="employeeForm">
+
+    @if (!string.IsNullOrEmpty(Model.EmployeeID))
+    {
+        <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
+        <div class="alert alert-info">
+            Editing employee with ID: @Model.EmployeeID
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Creating a new employee
+        </div>
+    }
+
+
+@*
+        @if (!string.IsNullOrEmpty(Model.EmployeeID))
+        {
+            <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
+            <div class="alert alert-info">
+                Editing employee with ID: @Model.EmployeeID
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Creating a new employee
+            </div>
+        }*@
+
+
+      
+        <div class="col-md-4">
+            <label asp-for="FirstName" class="form-label">First Name</label>
+            <input asp-for="FirstName" type="text" required class="form-control" id="FirstName4" placeholder="Enter the first name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="LastName" class="form-label">Last Name</label>
+            <input asp-for="LastName" type="text" required class="form-control" id="LastName4" placeholder="Enter the last name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="EmployeeID" class="form-label">Employee ID</label>
+            <input asp-for="EmployeeID" type="text" required class="form-control" id="EmployeeID4" placeholder="Enter the EmployeeID" maxlength="5">
+            <p style="color:Tomato;"><small>Enter 5 digits only</small></p>
+            <span asp-validation-for="EmployeeID" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" type="email" required class="form-control" id="Emailaddress" placeholder="abc@example.com">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+            <input asp-for="PhoneNumber" required class="form-control" id="PhoneNumber4" placeholder="(XXX) XXX-XXXX" size="14" maxlength="14" onchange="fixPhoneNumber(this)" onfocus="this.select()">
+            <p style="color:Tomato;"><small>Enter 10 numbers only</small></p>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="SSN" class="form-label">SSN</label>
+            <input asp-for="SSN" required class="form-control" id="inputSSN4" placeholder="XXX-XX-XXXX" size="11" maxlength="11" onchange="fixSSN(this)" onfocus="this.select()">
+            <p style="color:Tomato;"><small>Enter 9 numbers only</small></p>
+            <span asp-validation-for="SSN" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+            <input asp-for="DateOfBirth" type="date" required class="form-control">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Age" class="form-label">Age</label>
+            <input asp-for="Age" type="number" required class="form-control" id="inputAge">
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Salary" class="form-label">Salary</label>
+            <input asp-for="Salary" type="number" required class="form-control" id="inputSalary4">
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Department" class="form-label">Department</label>
+            <input asp-for="Department" type="text" required class="form-control" id="inputDepartment4">
+            <span asp-validation-for="Department" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-4">
+            <label asp-for="Gender" class="form-label">Gender</label>
+            <div class="d-flex justify-content-center">
+                <div class="form-check me-3">
+                    <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="male" value="Male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="female" value="Female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Address" class="form-label">Address</label>
+            <input asp-for="Address" type="text" required class="form-control" id="inputAddress" placeholder="1234 Main St">
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Address2" class="form-label">Address 2</label>
+            <input asp-for="Address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            <span asp-validation-for="Address2" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="City" class="form-label">City</label>
+            <input asp-for="City" type="text" required class="form-control" id="inputCity">
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Country" class="form-label">Country</label>
+            <select asp-for="Country" id="Country" class="form-select" onchange="filterStates()">
+                <option value="">Choose...</option>
+                <option value="UK">United Kingdom</option>
+
+                <option value="US">US</option>
+                <option value="Mexico">Mexico</option>
+                <option value="India">India</option>
+            </select>
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="State" class="form-label">State</label>
+            <select asp-for="State" id="State" class="form-select">
+                <option value="">Select a country first</option>
+            </select>
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Zip" class="form-label">Zip-Code</label>
+            <input asp-for="Zip" class="form-control" id="inputZip" placeholder="XXXXX" maxlength="5">
+            <span asp-validation-for="Zip" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-success">Save</button>
+        </div>
+
+        <div class="col-md-2">
+            <button type="reset" class="btn btn-primary">Cancel</button>
+        </div>
+    </form>
+
+   </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+    //    const countryToStates = {
+    //        UK: ["England", "Scotland", "Wales", "Northern Ireland"],
+    //        US: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
+    //        Mexico: ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Mexico City", "Mexico State", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"],
+    //        India: ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]
+           
+    //    };
+
+
+
+    //    function filterStates() {
+    //        const countrySelect = document.getElementById("Country");
+    //        const stateSelect = document.getElementById("State");
+
+
+       
+    //        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+      
+    //        const selectedCountry = countrySelect.value;
+
+    //        if (selectedCountry && countryToStates[selectedCountry]) {
+    //            countryToStates[selectedCountry].forEach(state => {
+    //                const option = document.createElement("option");
+    //                option.value = state;
+    //                option.text = state;
+    //                stateSelect.appendChild(option);
+    //            });
+    //        }
+    //    }
+
+
+    //window.onload = function () {
+      
+        
+
+       
+    //    filterStates();
+    //};
+
+
+
+
+    
+        const countryToStates = {
+        UK: ["England", "Scotland", "Wales", "Northern Ireland"],
+        US: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
+        Mexico: ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Mexico City", "Mexico State", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"],
+        India: ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]
+    };
+
+    let initialCountry = '@Model.Country';
+    let initialState = '@Model.State';
+
+    function filterStates() {
+        const countrySelect = document.getElementById("Country");
+        const stateSelect = document.getElementById("State");
+
+        // Clear existing options
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const selectedCountry = countrySelect.value;
+
+        if (selectedCountry && countryToStates[selectedCountry]) {
+            countryToStates[selectedCountry].forEach(state => {
+                const option = document.createElement("option");
+                option.value = state;
+                option.text = state;
+                stateSelect.appendChild(option);
+            });
+
+            
+            if (selectedCountry === initialCountry && initialState) {
+                stateSelect.value = initialState;
+            }
+        }
+    }
+
+    window.onload = function () {
+        const countrySelect = document.getElementById("Country");
+        const stateSelect = document.getElementById("State");
+
+     
+        countrySelect.addEventListener('change', filterStates);
+
+        filterStates();
+
+      
+        if (initialCountry) {
+            countrySelect.value = initialCountry;
+            filterStates(); 
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+        function fixSSN(input) {
+        
+            var cleaned = ('' + input.value).replace(/\D/g, '');
+
+         
+            var formatted = cleaned.replace(/^(\d{3})(\d{2})(\d{4})$/, '$1-$2-$3');
+
+   
+            input.value = formatted;
+        }
+
+        function fixPhoneNumber(input) {
+            var cleaned = ('' + input.value).replace(/\D/g, '');
+
+            var formatted = cleaned.replace(/^(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3');
+
+         
+            input.value = formatted;
+        }
+    </script>
+
+
+

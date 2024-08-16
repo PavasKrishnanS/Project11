@@ -1,0 +1,110 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = "dummy";  // Assuming 'dummy' is your layout file
+    ViewData["Title"] = "Sign Up";
+}
+
+@model Signupviewmodel
+
+<h1 class="display-4">Sign Up Here!</h1>
+
+<div class="container">
+
+<div class="row justify-content-around mt-1">
+    <div class="col-md-6 border p-4">
+            <form asp-controller="Home" asp-action="Signup" method="post"  class="row g-3">
+    
+        <div class="col-md-12">
+                    <label asp-for="Username"  class="form-label">Username</label>
+                    <input asp-for="Username" required class="form-control" placeholder="Enter the username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+                <div class="col-md-12">
+                    <label for="date"> Date of Birth </label><br>
+                    <input type="date" required class="form-control" id="date" name="date" required>
+
+                </div>
+
+        <div class="col-md-12">
+          
+
+
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="text" required class="form-control" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+            
+        </div>
+
+        <div class="col-md-12">
+
+                <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" required class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+            
+        </div>
+
+        <div class="col-md-12">
+
+               <label asp-for="ConfirmPassword" class="form-label">ConfirmPassword</label>
+                    <input asp-for="ConfirmPassword" type="password" required class="form-control" placeholder="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                
+        </div>
+
+
+                <div class="col-md-12">
+                
+
+
+                <input type="checkbox" id="check" name="check" />
+                <a href="https://www.kroger.com/">Terms & Conditions</a>
+
+        </div>
+
+
+          <div class ="col-md-4">
+         
+                    <button type="submit" class="btn btn-primary">Signup</button>
+        </div>
+      
+        <div class="col-md-4">
+                <button type="reset" class="btn btn-primary">Cancel</button>
+         </div>
+
+                <div class="col-md-12">
+                    <p>Already have an account? <a asp-controller="Home" asp-action="Login">Sign-in</a></p>
+
+                </div>
+                <div id="google_translate_element"></div>
+  </form>
+  </div>
+  </div>
+  </div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  
